@@ -2,12 +2,14 @@
 - name: Install Docker, Git, Maven
   hosts: all
   become: yes
+
   tasks:
 
     - name: Install Docker
-      yum:
-        name: docker
+      apt:
+        name: docker.io
         state: present
+        update_cache: yes
 
     - name: Start Docker service
       service:
@@ -16,15 +18,15 @@
         enabled: yes
 
     - name: Install Git
-      yum:
+      apt:
         name: git
         state: present
 
     - name: Install Maven
-      yum:
+      apt:
         name: maven
         state: present
-        
+
     - name: Set Docker socket permissions
       file:
         path: /var/run/docker.sock
